@@ -1,3 +1,5 @@
+import { addToCart, cart, updateCartCounter } from './cart.js';
+
 const API_URL = "https://v2.api.noroff.dev/rainy-days";
 let products = [];
 const isHomePage = window.location.pathname.includes('index.html');
@@ -111,43 +113,12 @@ function displayProduct(product) {
             return;
         }
         console.log('Add to Cart clicked:', product.id, selectedSize);
-        addToCart(product.id, selectedSize);
+        addToCart(product, selectedSize);
     };
     infoDiv.appendChild(addToCartBtnElement);
 
     currentBox.appendChild(infoDiv);
     productContainer.appendChild(currentBox);
-}
-
-function addToCart(productId, size) {
-    const product = products.find(p => p.id === productId);
-    if (!product) {
-        return;
-    }
-    
-    // sjekk om produktet allerede finnes i kurven
-    let existingItem = cart.find(item => item.id === productId);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({
-            id: productId,
-            title: product.title,
-            price: product.price,
-            image: product.image.url,
-            size: size, 
-            quantity: 1,
-            
-        });
-    }
-    
-    // Lagre til localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // oppdatering cart teller
-    updateCartCounter();
-    
 }
 
 function displaySingleProduct(product){

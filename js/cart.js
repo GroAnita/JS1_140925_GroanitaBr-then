@@ -1,40 +1,31 @@
 // Cart-related functions
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-
-
-function addToCart(productId, size) {
-    const product = products.find(p => p.id === productId);
+export function addToCart(product, size) {
     if (!product) {
         return;
     }
-    
     // sjekk om produktet allerede finnes i kurven
-    let existingItem = cart.find(item => item.id === productId);
-    
+    let existingItem = cart.find(item => item.id === product.id && item.size === size);
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
         cart.push({
-            id: productId,
+            id: product.id,
             title: product.title,
             price: product.price,
             image: product.image.url,
             size: size, 
             quantity: 1,
-            
         });
     }
-    
     // Lagre til localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
-    
     // oppdatering cart teller
     updateCartCounter();
-    
 }
 
-function updateCartCounter() {
+export function updateCartCounter() {
     const cartCounter = document.querySelector('.cart-count');
     const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
     
@@ -43,7 +34,7 @@ function updateCartCounter() {
     }
 }
 
-function displayCartItems() {
+export function displayCartItems() {
     const cartItemsContainer = document.getElementById('cartItems');
     const cartTotal = document.getElementById('cartTotal');
     
@@ -85,7 +76,7 @@ function displayCartItems() {
     cartTotal.textContent = total.toFixed(2);
 }
 
-function changeQuantity(itemAmount, change) {
+export function changeQuantity(itemAmount, change) {
     if (itemAmount >= 0 && itemAmount < cart.length) {
         cart[itemAmount].quantity += change;
 //splice fjerner produktet når man kommer til 0
@@ -102,7 +93,7 @@ function changeQuantity(itemAmount, change) {
     }
 }
 
-function showCart() {
+export function showCart() {
     const cartOverlay = document.getElementById('cartOverlay');
     if (cartOverlay) {
         cartOverlay.classList.add('show');
@@ -110,7 +101,7 @@ function showCart() {
     }
 }
 
-function hideCart() {
+export function hideCart() {
     const cartOverlay = document.getElementById('cartOverlay');
     if (cartOverlay) {
         cartOverlay.classList.remove('show');

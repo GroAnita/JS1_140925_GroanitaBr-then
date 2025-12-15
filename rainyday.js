@@ -228,31 +228,29 @@ function displayCartItems() {
     
     let total = 0;
     cartItemsContainer.innerHTML = '';
-    
     cart.forEach((item, index) => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        
-//template literals : ${item.image}. tar image propertien og setter den som en src verdi : f.eks. https://rainydays.no/powerjacket.jpg og samme med item.title som da henter tittelen fra objektet og den blir alt tekst f.eks :  Rainjacket 
-
         const cartItemHTML = `
-            <div class="cart-item">
-                <img src="${item.image}" alt="${item.title}" class="cart-item-image">
-                <div class="cart-item-details">
+            <div class="item">
+                <img src="${item.image}" alt="${item.title}" />
+                <div>
                     <div class="cart-item-title">${item.title}</div>
                     <div class="cart-item-size">Size: ${item.size}</div>
                     <div class="cart-item-price">$${item.price}</div>
                 </div>
-                <div class="cart-item-quantity">
-                    <div class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</div>
-                    <div class="quantity-number">${item.quantity}</div>
-                    <div class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</div>
+                <div class="quantity">
+                    <span onclick="changeQuantity(${index}, -1)">-</span>
+                    <span>${item.quantity}</span>
+                    <span onclick="changeQuantity(${index}, 1)">+</span>
+                </div>
+                <div>
+                    <div class="cart-item-total">$${itemTotal.toFixed(2)}</div>
                 </div>
             </div>
         `;
         cartItemsContainer.innerHTML += cartItemHTML;
     });
-    
     cartTotal.textContent = total.toFixed(2);
 }
 //funksjonen for å endre antall varer i handlekurven, basert på brukeren klikker + eller - for å legge til eller fjerne produkter. Når antallet kommer til 0 skal produktet fjernes helt fra kurven. 

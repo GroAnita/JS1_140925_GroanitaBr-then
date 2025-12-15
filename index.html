@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/products.js"></script>
+    <script type="module" src="js/cart.js"></script>
    
-    <script src="js/cart.js" defer></script>
-    <script src="js/products.js" defer></script>
-    <script src="js/alerts.js" defer></script>
-    <script src="js/checkout.js" defer></script>
+    <script type="module" src="js/alerts.js"></script>
+    <script type="module" src="js/checkout.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>RainyDays mainpage</title>
 </head>
@@ -33,22 +33,18 @@
         </span>
     </header>
     
-    <!-- Shopping Cart Overlay -->
-    <div class="cart-overlay" id="cartOverlay">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h2>Your Cart</h2>
-                <span class="close-cart" id="closeCart">&times;</span>
-            </div>
-            <div class="cart-items" id="cartItems">
-                <!-- Cart items will be added here by JavaScript -->
-            </div>
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <strong>Total: $<span id="cartTotal">0.00</span></strong>
-                </div>
-                <button onClick="checkout()" class="checkout-btn">Checkout</button>
-            </div>
+    <!-- Shopping Cart Sidebar -->
+    <div class="shopping_cart" id="cartOverlay">
+        <h2>Your Cart</h2>
+        <div class="cart_item" id="cartItems">
+            <!-- Cart items will be rendered here by JS -->
+        </div>
+        <div class="cart-actions">
+            <button class="close" id="closeCart">Close</button>
+            <button class="checkout" onclick="checkout()">Checkout</button>
+        </div>
+        <div class="cart-total">
+            <strong>Total: $<span id="cartTotal">0.00</span></strong>
         </div>
     </div>
     <h1>Welcome to RainyDays</h1>

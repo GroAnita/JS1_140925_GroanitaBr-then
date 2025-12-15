@@ -1,3 +1,5 @@
+import { updateCartCounter } from './cart.js';
+
 // Checkout-related functions
 const isCheckoutPage = window.location.pathname.includes('checkout.html');
 
