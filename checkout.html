@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
-    <script src="js/home.js" defer></script>
-     <script src="js/cart.js" defer></script>
-    <script src="js/products.js" defer></script>
-   
-    <script src="js/alerts.js" defer></script>
-    <script src="js/checkout.js" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="checkout.css">
+    <script type="module" src="js/alerts.js"></script>
+    <script type="module" src="js/cart.js"></script>
+    <script type="module" src="js/checkout.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Rainydays Checkoutpage</title>
 </head>
 <body>
@@ -23,7 +21,7 @@
             <img src="images/RainyDays_Logo.png" alt="RainyDays Logo" />
         </div>
         <div class="shopping_bag">
-            <i class="fa fa-shopping-bag"></i>
+            <i class="fas fa-shopping-bag"></i>
             <span class="cart-count">0</span>
         </div>
         </span>
@@ -35,23 +33,7 @@
     </header>
     
     <!-- Shopping Cart  -->
-    <div class="cart-overlay" id="cartOverlay">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h2>Your Cart</h2>
-                <span class="close-cart" id="closeCart">&times;</span>
-            </div>
-            <div class="cart-items" id="cartItems">
-                <!-- Shoppingbag items will be added by JS -->
-            </div>
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <strong>Total: $<span id="cartTotal">0.00</span></strong>
-                </div>
-                <button onClick="checkout()" class="checkout-btn">Checkout</button>
-            </div>
-        </div>
-    </div>
+
     <div class="checkoutlayout">
         <div class="returnCart">
             <button onclick="showCart()" id="returnToCartButton">Return to Cart</button>

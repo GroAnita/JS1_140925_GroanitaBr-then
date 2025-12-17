@@ -17,7 +17,6 @@ async function fetchProducts() {
         const data = await respons.json();
         const produkter = data.data || data;
         products = produkter;
-        console.log('Fetched products:', products);
         if (produkter && produkter.length > 0) {
             if(isProductPage) {
                 const productId = getProductId() || produkter[0].id;
@@ -105,19 +104,20 @@ function displayProduct(product) {
 
     // Add to Cart button
     const addToCartBtnElement = document.createElement('button');
-    addToCartBtnElement.id = 'addToCartButton';
+    addToCartBtnElement.className = 'addToCartButton';
     addToCartBtnElement.textContent = 'Add to Cart';
     addToCartBtnElement.addEventListener('click', () => {
+
         const selectedSize = sizeDropdown.value;
         if (!selectedSize) {
             showCustomAlert('Please select a size before adding to cart.', 'Size Required');
             return;
         }
-        console.log('Add to Cart clicked:', product.id, selectedSize);
+     
         addToCart(product, selectedSize);
     });
     infoDiv.appendChild(addToCartBtnElement);
-    console.log('Add to Cart button created for product:', product.id);
+   
 
     currentBox.appendChild(infoDiv);
     productContainer.appendChild(currentBox);
@@ -163,6 +163,20 @@ function displaySingleProduct(product){
             sizeSelect.appendChild(option);
         });
     }
+    
+    // Add to Cart button functionality
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', () => {
+            const selectedSize = sizeSelect ? sizeSelect.value : '';
+            if (!selectedSize) {
+                showCustomAlert('Please select a size before adding to cart.', 'Size Required');
+                return;
+            }
+         
+            addToCart(product, selectedSize);
+        });
+    }
 }
 
 function initializeFilter() {
@@ -188,7 +202,7 @@ function displayFilteredProducts(filteredProducts) {
             displayProduct(filteredProducts[i]);
         }
     }
-    console.log('Filtered Products:', filteredProducts);
+ 
 }
 
 function filterProducts(category) {
@@ -230,9 +244,7 @@ function filterProducts(category) {
         });
     }
     
-    // vise filtrerte produkter
-        console.log('Filter category:', category);
-        console.log('Filtered products:', filteredProducts);
+ 
     displayFilteredProducts(filteredProducts);
 }
 

@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-   <script async src="home.js"></script>
-     <script src="js/cart.js" defer></script>
-    <script src="js/products.js" defer></script>
-   
-    <script src="js/alerts.js" defer></script>
-    <script src="js/checkout.js" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/cart.js" type="module"></script>
+    <script src="js/products.js" type="module"></script>
+    <script src="js/alerts.js" type="module"></script>
+    <script src="js/checkout.js" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>RainyDays - Product Page</title>
 </head>
 <body>
@@ -24,7 +22,7 @@
             <img src="images/RainyDays_Logo.png" alt="RainyDays Logo" />
         </div>
         <div class="shopping_bag">
-            <i class="fa fa-shopping-bag"></i>
+            <i class="fas fa-shopping-bag"></i>
             <span class="cart-count">0</span>
         </div>
         </span>
@@ -35,21 +33,19 @@
         </span>
     </header>
     
-    <!-- Shopping Cart -->
-    <div class="cart-overlay" id="cartOverlay">
+    <!-- Shopping Cart Sidebar -->
+    <div class="shopping_cart" id="cartOverlay">
         <div class="cart-content">
-            <div class="cart-header">
-                <h2>Your Cart</h2>
-                <span class="close-cart" id="closeCart">&times;</span>
+            <h2>Your Cart</h2>
+            <div class="cart_item" id="cartItems">
+                <!-- Cart items will be rendered here by JS -->
             </div>
-            <div class="cart-items" id="cartItems">
-                <!-- Cart items will be added here by JavaScript -->
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
             </div>
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <strong>Total: $<span id="cartTotal">0.00</span></strong>
-                </div>
-                <button onClick="checkout()" class="checkout-btn">Checkout</button>
+            <div class="cart-actions">
+                <button class="close" id="closeCart">Close</button>
+                <button class="checkout" onclick="checkout()">Checkout</button>
             </div>
         </div>
     </div>
@@ -109,7 +105,7 @@
             </div>
             <div class="product-actions">
                 <button id="addToCartBtn" class="add-to-cart-btn">Add to Cart</button>
-                <button id="buyNowBtn" class="buy-now-btn" onclick="alert()">Buy Now</button>
+             
             </div>
         </div>
     </div>

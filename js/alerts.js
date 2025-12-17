@@ -1,10 +1,36 @@
 // Alert/modal functions
-export function showCustomAlert(message, title = "Alert") { /* ...existing code... */ }
-function closeCustomAlert() { /* ...existing code... */ }
-function showPurchaseSuccess() { /* ...existing code... */ }
-function closePurchaseSuccess() { /* ...existing code... */ }
-function showAlert(message) { /* ...existing code... */ }
-function closeAlert() { /* ...existing code... */ }
+export function showCustomAlert(message, title = "Alert") {
+    const alertTitle = document.getElementById('alertTitle');
+    const alertMessage = document.getElementById('alertMessage');
+    const customAlert = document.getElementById('customAlert');
+    
+    if (alertTitle) alertTitle.textContent = title;
+    if (alertMessage) alertMessage.textContent = message;
+    if (customAlert) customAlert.style.display = 'block';
+}
+
+function closeCustomAlert() {
+    const customAlert = document.getElementById('customAlert');
+    if (customAlert) customAlert.style.display = 'none';
+}
+
+export function showPurchaseSuccess() {
+    const successModal = document.getElementById('purchaseSuccessModal');
+    if (successModal) successModal.style.display = 'block';
+}
+
+function closePurchaseSuccess() {
+    const successModal = document.getElementById('purchaseSuccessModal');
+    if (successModal) successModal.style.display = 'none';
+}
+
+function showAlert(message) {
+    alert(message);
+}
+
+function closeAlert() {
+    // Close generic alert
+}
 // Only keep one definition of initializeCustomAlert below:
 function initializeCustomAlert() {
     const alertModal = document.getElementById('customAlert');
@@ -23,8 +49,10 @@ function initializeCustomAlert() {
             }
         }
     }
-    if (isCheckoutPage) {
-        const successModal = document.getElementById('purchaseSuccessModal');
+    
+    // Initialize purchase success modal if it exists (on checkout page)
+    const successModal = document.getElementById('purchaseSuccessModal');
+    if (successModal) {
         const successCloseBtn = document.querySelector('.success-close');
         const successOkBtn = document.getElementById('successOkBtn');
         if (successCloseBtn) {
@@ -36,12 +64,13 @@ function initializeCustomAlert() {
                 window.location.href = 'index.html';
             };
         }
-        if (successModal) {
-            successModal.onclick = function(event) {
-                if (event.target === successModal) {
-                    closePurchaseSuccess();
-                }
+        successModal.onclick = function(event) {
+            if (event.target === successModal) {
+                closePurchaseSuccess();
             }
         }
     }
 }
+
+// Initialize the custom alert when the page loads
+document.addEventListener('DOMContentLoaded', initializeCustomAlert);

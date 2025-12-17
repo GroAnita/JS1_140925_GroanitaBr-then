@@ -1,13 +1,12 @@
-import { updateCartCounter } from './cart.js';
+import { updateCartCounter, cart } from './cart.js';
+import { showPurchaseSuccess } from './alerts.js';
 
 // Checkout-related functions
 const isCheckoutPage = window.location.pathname.includes('checkout.html');
 
 function loadCheckoutCart() {
     const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-        cart = JSON.parse(savedCart);
-    }
+  
     displayCheckoutItems();
     calculateCheckoutTotal();
 }
@@ -53,6 +52,7 @@ function displayCheckoutItems() {
                     <div class="checkout-item-size">Size: ${item.size || 'Not specified'}</div>
                     <div class="checkout-item-price">$${item.price.toFixed(2)} x ${item.quantity}</div>
                     <div class="checkout-item-total">Total: $${itemTotal.toFixed(2)}</div>
+                    <i class="fas fa-trash" onclick="removeCheckoutItem(${index})"></i>
                 </div>
             </div>
         `;
@@ -63,13 +63,27 @@ function displayCheckoutItems() {
 
 function placeOrder(event) {
     event.preventDefault();
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
     if (cart.length === 0) {
         alert("Your cart is empty!");
         return;
     }
-    cart = [];
-    localStorage.setItem('cart', JSON.stringify(cart));
+
+    localStorage.setItem('cart', JSON.stringify([]));
     updateCartCounter();
     displayCheckoutItems();
     showPurchaseSuccess();
 }
+function removeCheckoutItem(index) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (index >= 0 && index < cart.length) {
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCounter();
+        displayCheckoutItems();
+    }
+}
+
+// Make functions globally accessible for onclick handlers
+window.placeOrder = placeOrder;
+window.removeCheckoutItem = removeCheckoutItem;

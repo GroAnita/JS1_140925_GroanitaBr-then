@@ -8,7 +8,7 @@
    
     <script type="module" src="js/alerts.js"></script>
     <script type="module" src="js/checkout.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>RainyDays mainpage</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
             <img src="images/RainyDays_Logo.png" alt="RainyDays Logo" />
         </div>
         <div class="shopping_bag">
-            <i class="fa fa-shopping-bag"></i>
+            <i class="fas fa-shopping-bag"></i>
             <span class="cart-count">0</span>
         </div>
         </span>
@@ -33,18 +33,20 @@
         </span>
     </header>
     
-    <!-- Shopping Cart Sidebar -->
+    <!-- Shopping Cart Overlay -->
     <div class="shopping_cart" id="cartOverlay">
-        <h2>Your Cart</h2>
-        <div class="cart_item" id="cartItems">
-            <!-- Cart items will be rendered here by JS -->
-        </div>
-        <div class="cart-actions">
-            <button class="close" id="closeCart">Close</button>
-            <button class="checkout" onclick="checkout()">Checkout</button>
-        </div>
-        <div class="cart-total">
-            <strong>Total: $<span id="cartTotal">0.00</span></strong>
+        <div class="cart-content">
+            <h2>Your Cart</h2>
+            <div class="cart_item" id="cartItems">
+                <!-- Cart items will be rendered here by JS -->
+            </div>
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+            </div>
+            <div class="cart-actions">
+                <button class="close" id="closeCart">Close</button>
+                <button class="checkout" onclick="checkout()">Checkout</button>
+            </div>
         </div>
     </div>
     <h1>Welcome to RainyDays</h1>

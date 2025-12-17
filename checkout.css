@@ -1,0 +1,31 @@
+.checkout-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+.checkout-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+.checkout-item-details {
+    flex-grow: 1;
+}
+.checkout-item-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.checkout-item-size,
+.checkout-item-price,
+.checkout-item-total {
+    font-size: 14px;
+    color: #555;
+}
+.checkout-item i.fa-trash {
+    cursor: pointer;
+    color: red;
+    margin-left: 10px;
+}

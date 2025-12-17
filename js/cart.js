@@ -3,12 +3,16 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 export function addToCart(product, size) {
     if (!product) {
+        console.error('Product is undefined');
         return;
     }
+    console.log('Adding to cart:', product.title, 'Size:', size);
+    
     // sjekk om produktet allerede finnes i kurven
     let existingItem = cart.find(item => item.id === product.id && item.size === size);
     if (existingItem) {
         existingItem.quantity += 1;
+        console.log('Increased quantity for existing item');
     } else {
         cart.push({
             id: product.id,
@@ -18,11 +22,18 @@ export function addToCart(product, size) {
             size: size, 
             quantity: 1,
         });
+        console.log('Added new item to cart');
     }
+    
     // Lagre til localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
+    console.log('Cart saved to localStorage:', cart);
+    
     // oppdatering cart teller
     updateCartCounter();
+    
+    // Show success message
+    showCart();
 }
 
 export function updateCartCounter() {
@@ -52,21 +63,23 @@ export function displayCartItems() {
     cart.forEach((item, index) => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        
-//template literals : ${item.image}. tar image propertien og setter den som en src verdi : f.eks. https://rainydays.no/powerjacket.jpg og samme med item.title som da henter tittelen fra objektet og den blir alt tekst f.eks :  Rainjacket 
 
         const cartItemHTML = `
-            <div class="cart-item">
-                <img src="${item.image}" alt="${item.title}" class="cart-item-image">
-                <div class="cart-item-details">
+            <div class="item">
+                <img src="${item.image}" alt="${item.title}" />
+                <div>
                     <div class="cart-item-title">${item.title}</div>
                     <div class="cart-item-size">Size: ${item.size}</div>
                     <div class="cart-item-price">$${item.price}</div>
                 </div>
-                <div class="cart-item-quantity">
-                    <div class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</div>
-                    <div class="quantity-number">${item.quantity}</div>
-                    <div class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</div>
+                <div class="quantity">
+                    <span onclick="changeQuantity(${index}, -1)">-</span>
+                    <span>${item.quantity}</span>
+                    <span onclick="changeQuantity(${index}, 1)">+</span>
+                </div>
+                <div>
+                    <div class="cart-item-total">$${itemTotal.toFixed(2)}</div>
+                    <i class="fas fa-trash" onclick="removeFromCart(${index})"></i>
                 </div>
             </div>
         `;
@@ -93,20 +106,41 @@ export function changeQuantity(itemAmount, change) {
     }
 }
 
-export function showCart() {
-    const cartOverlay = document.getElementById('cartOverlay');
-    if (cartOverlay) {
-        cartOverlay.classList.add('show');
+// Make changeQuantity globally accessible for onclick handlers
+window.changeQuantity = changeQuantity;
+
+export function removeFromCart(index) {
+    if (index >= 0 && index < cart.length) {
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCounter();
         displayCartItems();
     }
 }
 
-export function hideCart() {
-    const cartOverlay = document.getElementById('cartOverlay');
-    if (cartOverlay) {
-        cartOverlay.classList.remove('show');
-    }
+// Make removeFromCart globally accessible for onclick handlers
+window.removeFromCart = removeFromCart;
+
+export function showCart() {
+    document.body.classList.add('show-cart');
+    displayCartItems();
 }
+
+export function hideCart() {
+    document.body.classList.remove('show-cart');
+}
+
+export function checkout() {
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+    window.location.href = 'checkout.html';
+}
+
+// Make functions globally accessible for onclick handlers
+window.changeQuantity = changeQuantity;
+window.checkout = checkout;
 
 document.addEventListener('DOMContentLoaded', function() {
     updateCartCounter();
