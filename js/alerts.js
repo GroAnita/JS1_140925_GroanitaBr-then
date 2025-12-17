@@ -1,5 +1,5 @@
 // Alert/modal functions
-function showCustomAlert(message, title = "Alert") { /* ...existing code... */ }
+export function showCustomAlert(message, title = "Alert") { /* ...existing code... */ }
 function closeCustomAlert() { /* ...existing code... */ }
 function showPurchaseSuccess() { /* ...existing code... */ }
 function closePurchaseSuccess() { /* ...existing code... */ }

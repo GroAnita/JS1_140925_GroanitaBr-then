@@ -1,4 +1,5 @@
 import { addToCart, cart, updateCartCounter } from './cart.js';
+import { showCustomAlert } from './alerts.js';
 
 const API_URL = "https://v2.api.noroff.dev/rainy-days";
 let products = [];
@@ -106,7 +107,7 @@ function displayProduct(product) {
     const addToCartBtnElement = document.createElement('button');
     addToCartBtnElement.id = 'addToCartButton';
     addToCartBtnElement.textContent = 'Add to Cart';
-    addToCartBtnElement.onclick = () => {
+    addToCartBtnElement.addEventListener('click', () => {
         const selectedSize = sizeDropdown.value;
         if (!selectedSize) {
             showCustomAlert('Please select a size before adding to cart.', 'Size Required');
@@ -114,8 +115,9 @@ function displayProduct(product) {
         }
         console.log('Add to Cart clicked:', product.id, selectedSize);
         addToCart(product, selectedSize);
-    };
+    });
     infoDiv.appendChild(addToCartBtnElement);
+    console.log('Add to Cart button created for product:', product.id);
 
     currentBox.appendChild(infoDiv);
     productContainer.appendChild(currentBox);
