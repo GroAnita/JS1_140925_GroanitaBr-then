@@ -3,7 +3,7 @@ import { showCustomAlert } from './alerts.js';
 
 const API_URL = "https://v2.api.noroff.dev/rainy-days";
 let products = [];
-const isHomePage = window.location.pathname.includes('index.html');
+const isHomePage = window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/');
 const isProductPage = window.location.pathname.includes('productpage.html');
 
 
